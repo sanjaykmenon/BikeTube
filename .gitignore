@@ -3,6 +3,13 @@
 local.properties
 *.keystore
 *.jks
+*.p12
+*.pfx
+*.pem
+*.log
+*.hprof
+*.dump
+docs/screenshots/
 signing.properties
 .biketube-state.json
 .android/
