@@ -15,7 +15,76 @@ BikeTube reads the tablet's existing sensor service. It does not require a Pelot
 
 Speed is estimated from power using the community-derived Peloton speed model. It is not measured road speed, and exact agreement with the stock Peloton display has not been verified. App installation and sensor access can change with Peloton updates.
 
-## Build and install
+## Set up with a USB cable and Codex
+
+You can ask Codex to prepare the computer, build BikeTube, and install it through USB. You need a compatible bike, a computer with Internet access, and a USB cable that carries data. A charging-only cable will not work. Codex still needs the Android build tools, but it can help you install and configure them.
+
+### 1. Open the repository locally in Codex
+
+Download this repository using GitHub's **Code > Download ZIP** button and extract it, or clone it with Git. Open the extracted BikeTube folder as a local project in Codex on the computer connected to the bike. Choose the folder containing this README and `gradlew`.
+
+Use the desktop app or a locally running Codex CLI session. A cloud build environment does not have direct access to the USB cable on your computer. If you are new to Codex, follow the [official quickstart](https://learn.chatgpt.com/docs/quickstart) to sign in, open a local folder, and choose Codex for the task.
+
+### 2. Connect and authorize the bike
+
+On the bike, open Android Settings, then **About tablet**. Tap **Build number** seven times to enable Developer options, then turn on **USB debugging**. The route to Android Settings can vary by firmware.
+
+Connect the computer to the tablet's USB port with the data cable. Keep the bike awake. When the USB debugging authorization prompt appears, accept it on the bike. The prompt may appear after Codex first checks the connection. If Developer options are unavailable, tell Codex rather than attempting a firmware change.
+
+### 3. Paste this prompt into Codex
+
+```text
+Set up BikeTube from this local repository on my Peloton Bike connected
+to this computer through a USB data cable. I want BikeTube to be the
+Home screen, with a button to return to Peloton.
+
+Read README.md, docs/setup.md, docs/troubleshooting.md, and scripts/device.py.
+Check the computer's existing tools first. Help install any missing
+dependencies from official sources: JDK 17, Python 3, Android SDK Platform
+34, Build Tools 34.0.0, and Platform Tools. Keep downloaded tools, SDK paths,
+device state, logs, and signing keys local and excluded from Git.
+
+Use the included Gradle wrapper. Configure JAVA_HOME and the Android SDK
+path for this computer. Run assembleDebug, testDebugUnitTest, lintDebug,
+and the Python setup tests. Do not change application code just to install it.
+
+Run scripts/device.py doctor with the correct adb path. If USB debugging
+needs authorization, explain what I need to tap on the bike and wait for me.
+If multiple devices are connected, ask me which one to use. Stop if the
+model or sensor interface is unsupported; do not bypass compatibility checks.
+
+Install using scripts/device.py install --launcher. Preserve the saved
+original Home state and the signing key for future updates. Do not factory
+reset, root, unlock the bootloader, change firmware, or uninstall an existing
+app to resolve a signing mismatch without asking me first.
+
+Open BikeTube and guide me through checking video playback, sound,
+fullscreen exit, and changing live metrics while I pedal. Tell me how to
+restore the original Home app. Do not publish any device or account data.
+```
+
+To keep the existing Peloton Home screen, replace the first paragraph with "Keep my current Home screen" and change `install --launcher` to `install` in the prompt.
+
+Codex may request permission to download tools or access the connected device, depending on its local permissions. Review those requests. USB authorization and the final riding checks require your input on the bike.
+
+### 4. Check the installed app
+
+Open BikeTube from its Home screen. Play a video and check sound and the visible **Exit fullscreen** control. Pedal for 15 to 20 seconds at different cadences and confirm that power and cadence change. Change resistance using the bike's normal controls and check the resistance gauge. Drag the **BIKE** header to move the dashboard, or tap **Collapse** to reduce its footprint.
+
+Keep the local `.biketube-state.json` file and the signing key used for the build. They allow Home restoration and future app updates. Do not upload either file. After setup, you can disconnect the cable and close Codex; BikeTube runs on the tablet, and YouTube uses the bike's Wi-Fi.
+
+### 5. Return to the original Home screen
+
+Reconnect the cable and ask Codex:
+
+```text
+Restore the original Home app using scripts/device.py restore-home.
+Verify that it opens. Leave BikeTube installed and preserve its data.
+```
+
+The BikeTube launcher also has a Peloton button for opening the original app without changing the default Home screen. See [Troubleshooting](docs/troubleshooting.md) if setup stops.
+
+## Build and install manually
 
 You need a computer, a USB data cable, Python 3, and Android development tools. Android Studio provides the Android SDK and a Java runtime. Use JDK 17 and install SDK Platform 34, Build Tools 34.0.0, and Platform Tools from its SDK Manager.
 
