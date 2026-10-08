@@ -1,0 +1,15 @@
+BikeTube
+
+The speed calculation in BikeMath.java is adapted from OpenRide's
+PelotonSpeed.kt by digitalducktape, licensed under Apache License 2.0.
+It has been converted to Java with input validation and display unit conversion.
+https://github.com/digitalducktape/OpenRide
+
+The underlying power to speed model was reverse engineered by Imran Haque
+in PeloMon. Grupetto by selalipop demonstrated a system-wide bike metrics
+overlay. These projects informed the interoperability work.
+https://ihaque.org/posts/2020/12/25/pelomon-part-ib-computing-speed/
+https://github.com/selalipop/grupetto
+
+The Gradle wrapper is distributed under Apache License 2.0.
+The repository includes no Peloton APKs, firmware, or decompiled source.

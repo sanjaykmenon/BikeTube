@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_link_error">Open videos in the website. App links are unavailable here.</string>
+    <string name="network_error">Could not load YouTube. Check Wi-Fi, then tap Reload.</string>
+    <string name="http_error">The website returned an error. Tap Reload to try again.</string>
+    <string name="metric_units">Show speed in km/h</string>
+    <string name="no_signal">NO SIGNAL</string>
+    <string name="unavailable">UNAVAILABLE</string>
+</resources>

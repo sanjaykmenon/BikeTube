@@ -1,0 +1,37 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'local.peloton.probe'
+    compileSdk 34
+    defaultConfig {
+        // Keep the original ID so existing BikeTube installs can be updated.
+        applicationId 'local.peloton.probe'
+        minSdk 30
+        // Sideload-only build: retain the behavior verified on Peloton Android 11.
+        // This is not a Google Play release. See docs/development.md.
+        targetSdk 30
+        versionCode 9
+        versionName '0.2.0'
+    }
+    signingConfigs {
+        if (System.getenv('BIKETUBE_KEYSTORE')) {
+            distribution {
+                storeFile file(System.getenv('BIKETUBE_KEYSTORE'))
+                storePassword System.getenv('BIKETUBE_STORE_PASSWORD')
+                keyAlias System.getenv('BIKETUBE_KEY_ALIAS')
+                keyPassword System.getenv('BIKETUBE_KEY_PASSWORD')
+            }
+        }
+    }
+    buildTypes {
+        debug {
+            if (System.getenv('BIKETUBE_KEYSTORE')) signingConfig signingConfigs.distribution
+        }
+        release {
+            minifyEnabled false
+            if (System.getenv('BIKETUBE_KEYSTORE')) signingConfig signingConfigs.distribution
+        }
+    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 }
+    lint { abortOnError true; disable 'OldTargetApi', 'ObsoleteSdkInt', 'SetJavaScriptEnabled', 'ExpiredTargetSdkVersion' }
+}
+dependencies { testImplementation 'junit:junit:4.13.2' }

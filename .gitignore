@@ -1,0 +1,15 @@
+.gradle/
+**/build/
+local.properties
+*.keystore
+*.jks
+signing.properties
+.biketube-state.json
+.android/
+tools/
+inspection/
+sensor-probe/
+.DS_Store
+__pycache__/
+*.pyc
+dist/
